@@ -1,0 +1,1 @@
+python random_ksat.py 3 n_var n_clauses 1 out.cnf 

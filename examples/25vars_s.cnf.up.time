@@ -1,0 +1,12 @@
+Done! Found 2186 solutions
+Destroying the tree!
+INFO: DONE! Time required: 47999.9
+
+Reading a sorted CNF input file...
+-> Info:
+     filename : ../examples/25vars_s.cnf
+     variables: 25
+     clauses  : 100
+SOL [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1] ok!
+SOL [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1] ok!
+Found 2 solution!

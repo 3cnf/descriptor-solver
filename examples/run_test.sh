@@ -1,0 +1,42 @@
+#!/bin/sh
+
+#####################################################################
+# This script shows how to use the several sub-programs with $1.cnf #
+#####################################################################
+
+if [[ -f "$1".cnf ]]
+then 
+    # Re-labelling and sorting
+    ../permutation/permutation "$1".cnf > "$1"_sorted.cnf
+    
+    # Approximation of the complexity (should be 2^6)
+    python3 ../compute_W/compute_W.py "$1"_sorted.cnf
+    
+    # Solving the problem
+    # -> output: "$1"_sorted.cnf.Hmat and "$1"_sorted.cnf.sol
+    ../algo/cnf "$1"_sorted.cnf
+    
+    # Determining a sub-problem with complexity of 2^5 from the sorted cnf
+    # -> output: "$1"_sorted.cnf.up
+    sh ../filter/filter_clauses.sh "$1"_sorted.cnf 5
+    
+    # Solving the sub-problem
+    # -> output: "$1"_sorted.cnf.up.Hmat and "$1"_sorted.cnf.up.sol
+    ../algo/cnf "$1"_sorted.cnf.up
+    
+    # "$1"ing the solutions of the sub-problems in the original one
+    python3 ../check_solution/check_solution.py "$1"_sorted.cnf "$1"_sorted.cnf.up.sol
+    
+    # Combining different H matrices from different sub-problem in one H matrix
+    # for the next command if needed
+    # -> output: combined.Hmat
+    #sh ../combine_H/combine.sh
+    
+    # Solving the (combined sub-)problem(s) contained in a H matrix
+    #../algo/cnf "$1"_sorted.cnf.Hmat neutral_6vars.vec 6
+else
+    echo "Usage : sh run_test.sh filename [without .cnf mention] "
+    exit
+fi
+
+
