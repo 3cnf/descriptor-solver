@@ -1,7 +1,7 @@
 # A multi-linear descriptor approach to solve 3-CNF SAT problems
 
 This repository contains the implementation of the algorithms detailed in the paper
-[A 3-CNF-SAT descriptor algebra and the solution of the P=NP conjecture][https://arxiv.org/abs/1609.05709].
+[A 3-CNF-SAT descriptor algebra and the solution of the P=NP conjecture](https://arxiv.org/abs/1609.05709).
 
 It consists of the following sub-programs:
 - `algo` that implements the core algorithm to solve 3-CNF SAT problems
@@ -10,7 +10,7 @@ It consists of the following sub-programs:
 - `combine_H` combines H matrices;
 - `filter` is used to find a sub-problem of a given maximal complexity for the original 3-CNF problem. Note that to obtain different sub-problems, the filter should be applied on different subset of the original cnf file;
 - `permutation` that handles the relabelling of the variables and the permutation of the clauses as described in the paper;
-- and `toughsat` written by Henry Yuen for the [ToughSat Project][https://toughsat.appspot.com/] to generate 3-CNF problems.
+- and `toughsat` written by Henry Yuen for the [ToughSat Project](https://toughsat.appspot.com/) to generate 3-CNF problems.
 
 In addition, you can find sample problems in the `examples` directory.
 
