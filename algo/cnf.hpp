@@ -84,7 +84,7 @@ void save_matrix_s(s_matrix const &M, std::string filename);
 void save_vector(std::vector<int> const &v, unsigned int start = 0, std::string filename = "sol");
 
 // simplifies a binary matrix/vector
-s_matrix simplify_matrix_sparse(s_matrix &matrix_in, int n_litterals);
+s_matrix simplify_matrix_sparse(s_matrix &matrix_in, int n_litterals, int cur_litteral);
 s_vector simplify_vector_sparse(s_matrix &matrix_in, s_vector &vector_in, int cur_row, int n_litterals);
 
 // create a matrix from a vector

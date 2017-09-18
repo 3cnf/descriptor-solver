@@ -733,7 +733,7 @@ s_vector copy_row_in_v(s_matrix &M, int row) {
     
 }
 
-s_matrix simplify_matrix_sparse(s_matrix &matrix_in, int n_litterals) {
+s_matrix simplify_matrix_sparse(s_matrix &matrix_in, int n_litterals, int cur_litteral) {
 
   s_matrix matrix_out;
     
@@ -743,8 +743,9 @@ s_matrix simplify_matrix_sparse(s_matrix &matrix_in, int n_litterals) {
     
   for(int cur_row = 0; cur_row < n_litterals; cur_row++) {
                
-    if (count_ones_vector(matrix_in, cur_row) > 0) {        
-            
+    if (count_ones_vector(matrix_in, cur_row) > 0 && cur_row < cur_litteral) {        
+      // if (count_ones_vector(matrix_in, cur_row) > 0 ) {        
+      // printf("%d : Cur_litteral = %d \n",cur_row,cur_litteral);      
       // v_temp1 <- H_{cur_row}
       v_temp1 = matrix_in[cur_row];           
             
@@ -1259,10 +1260,11 @@ void merge_matrices(string filename) {
   bool sat = true;
   int cur_lev_rec = 0;
   int max_lev_rec = 0;
-  int tot_lev_rec = 0;    
+  int tot_lev_rec = 0;
     
   for (int c = 1; c < n_clauses; c++) {
-        
+
+    int cur_litteral = 2;        
     // ... computing H2
     if (DEBUG >= 2) {    
       cout << "INFO: GENERATING MATRIX F" << c + 1 << ", G" << c + 1 << " and H" << c + 1 << endl;        
@@ -1272,8 +1274,16 @@ void merge_matrices(string filename) {
     // ... merging with H1 and updating it        
     // ... 1. Simplifiy the matrices H1, F1 and G1
     
-    // Marcel : No simplify
-    H3 = simplify_matrix_sparse(H1, n_litterals);                    
+    // Marcel : No simplify the row > cur_litteral
+    for (int i = 0; i < n_litterals; i++){
+      //  printf("Input_matrix[%d][%d] = %d and Cur_litteral = %d \n",c,i,input_matrix[c][i],cur_litteral);      
+      if (input_matrix[c][i] !=0 && i+1 > cur_litteral){
+	cur_litteral = i+1;
+      }
+    }
+   
+    H3 = simplify_matrix_sparse(H1, n_litterals, cur_litteral);                    
+    //    H3 = simplify_matrix_sparse(H1, n_litterals);                    
     //H3 = H1;                    
 
     if (DEBUG >= 2) {
@@ -1455,7 +1465,7 @@ void merge_matrix_vector(string filename_matrix, string filename_vector, int n_l
   // 1. Simplify matrix H to generate H1, F1 and G1
     
   // Marcel : no simplify
-  s_matrix H3 = simplify_matrix_sparse(H1, n_litterals);
+  s_matrix H3 = simplify_matrix_sparse(H1, n_litterals, n_litterals);
   H1 = H3;
   //s_matrix H3 = H1;  // before: comment both line above
     
