@@ -211,12 +211,12 @@ void write_relabel(char *filename, int* sorted, int** out, int *n_row, int *n_co
   // write the clause in descending order
 
   for (int i=n_litterals;i>2;i--){
-    for (clause=1;clause<=n_clauses;clause++){
+    for (clause=0;clause<n_clauses;clause++){
       if ((*litteral_1)[clause] == i){
 	printf(" %d %d %d 0 \n",(*litteral_1)[clause],(*litteral_2)[clause],(*litteral_3)[clause]);
       }
     }
-    for (clause=1;clause<=n_clauses;clause++){
+    for (clause=0;clause<n_clauses;clause++){
       if ((*litteral_1)[clause] == -i){
 	printf(" %d %d %d 0 \n",(*litteral_1)[clause],(*litteral_2)[clause],(*litteral_3)[clause]);
       }
